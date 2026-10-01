@@ -1,0 +1,178 @@
+import { DPDPRequirement, CertInDirective } from '../types/audit';
+
+export const DPDP_REQUIREMENTS: DPDPRequirement[] = [
+  {
+    section: 'Section 5',
+    title: 'Notice & Purpose Limitation',
+    description: 'Every request for personal data must be accompanied or preceded by a notice informing the Data Principal of the personal data to be collected, purpose for processing, exercise of rights, and complaint filing with Data Protection Board.',
+    obligations: [
+      'Itemized notice accessible in English or any 8th Schedule Indian language',
+      'Contact details of Data Protection Officer (DPO) or grievance redressal officer',
+      'Clear mechanism to withdraw consent',
+    ],
+    maxPenalty: '₹50 Crores',
+    complianceStatus: 'Partial',
+    gapAnalysis: 'Notice rendered during merchant onboarding omitted language selector and DPO direct email identifier.',
+  },
+  {
+    section: 'Section 6',
+    title: 'Valid Consent & Consent Managers',
+    description: 'Consent must be free, specific, informed, unconditional, and unambiguous with clear affirmative action. Consent shall be revocable as easily as it was given.',
+    obligations: [
+      'Prohibit pre-ticked consent boxes or bundled forced terms',
+      'Integration with registered Consent Managers for revocation tracking',
+      'Immediate cessation of processing upon withdrawal',
+    ],
+    maxPenalty: '₹150 Crores',
+    complianceStatus: 'Non-Compliant',
+    gapAnalysis: 'Pre-checked terms box detected on checkout forms; no Consent Manager interface provided.',
+  },
+  {
+    section: 'Section 8',
+    title: 'Obligations of Data Fiduciary (Security Safeguards)',
+    description: 'A Data Fiduciary shall implement appropriate technical and organizational measures to ensure compliance and prevent personal data breaches.',
+    obligations: [
+      'Reasonable security safeguards to prevent data breaches',
+      'Intimation of personal data breach to Data Protection Board and affected Data Principals',
+      'Erasure of personal data when purpose is served or consent withdrawn',
+      'Periodic audits for Significant Data Fiduciaries (SDF)',
+    ],
+    maxPenalty: '₹250 Crores',
+    complianceStatus: 'Non-Compliant',
+    gapAnalysis: 'Parameter tampering on checkout and IDOR vulnerabilities constitute lack of reasonable security safeguards.',
+  },
+  {
+    section: 'Section 9',
+    title: 'Processing of Children Personal Data',
+    description: 'A Data Fiduciary shall obtain verifiable consent of the parent of such child (under 18 years) before processing any personal data. It shall not undertake tracking or behavioral monitoring of children.',
+    obligations: [
+      'Verifiable parental consent mechanism (DigiLocker, OTP, Government ID)',
+      'Strict ban on targeted advertising towards minors',
+      'Zero processing detrimental to the well-being of a child',
+    ],
+    maxPenalty: '₹200 Crores',
+    complianceStatus: 'Non-Compliant',
+    gapAnalysis: 'Student onboarding relies on self-reported age without independent parent OTP verification.',
+  },
+  {
+    section: 'Section 11 & 12',
+    title: 'Rights & Grievance Redressal of Data Principal',
+    description: 'Data Principals possess the right to access summary of personal data, right to correction and erasure, right to grievance redressal, and right to nominate.',
+    obligations: [
+      'Self-serve portal or automated API to request personal data export and erasure',
+      'Redressal of grievances within prescribed regulatory timelines',
+      'Accessible nomination workflow in event of death or incapacity',
+    ],
+    maxPenalty: '₹100 Crores',
+    complianceStatus: 'Partial',
+    gapAnalysis: 'No automated erasure endpoint present in account settings; grievance ticket pipeline missing.',
+  },
+];
+
+export const CERT_IN_DIRECTIVES: CertInDirective[] = [
+  {
+    directiveId: 'CERT-IN-01',
+    title: 'Mandatory 6-Hour Cybersecurity Incident Reporting',
+    timeframe: 'Within 6 hours of noticing or being brought to notice',
+    details: 'All service providers, intermediaries, data centres, body corporate, and government organizations must report 20 identified types of cybersecurity incidents (e.g. data breach, unauthorized access, ransomware, denial of service) to CERT-In Incident Response Team.',
+    verificationMethod: 'Automated webhook alert and incident dispatch pipeline readiness audit',
+    status: 'Deficit',
+  },
+  {
+    directiveId: 'CERT-IN-02',
+    title: 'System Clock Synchronization to NTP Servers',
+    timeframe: 'Continuous synchronization',
+    details: 'Mandatory synchronization of all ICT system clocks with Network Time Protocol (NTP) servers of National Physical Laboratory (NPL) or National Informatics Centre (NIC), or NTP servers traceable to these.',
+    verificationMethod: 'Audit server HTTP Date headers, kernel NTP sync status, and syslog timestamps',
+    status: 'Warning',
+  },
+  {
+    directiveId: 'CERT-IN-03',
+    title: '180-Day System Logs Maintenance in Indian Jurisdiction',
+    timeframe: 'Rolling 180 days',
+    details: 'Log records of all ICT systems must be securely maintained for a rolling period of 180 days within Indian jurisdiction and presented to CERT-In when directed.',
+    verificationMethod: 'Inspection of centralized log shipping, write-once retention policies, and storage region',
+    status: 'Deficit',
+  },
+  {
+    directiveId: 'CERT-IN-04',
+    title: 'Designation of Point of Contact (PoC)',
+    timeframe: 'Immediate upon corporate inception',
+    details: 'Organizations must register their designated security Point of Contact (PoC) with CERT-In to interface with national incident response coordinators.',
+    verificationMethod: 'Check security.txt and compliance register for designated PoC details',
+    status: 'Ready',
+  },
+];
+
+export const OWASP_TOP_10 = [
+  {
+    code: 'A01:2021',
+    name: 'Broken Access Control',
+    status: 'Violated',
+    findingsCount: 3,
+    description: 'Failures that allow unauthorized information disclosure, modification, or destruction of data.',
+  },
+  {
+    code: 'A02:2021',
+    name: 'Cryptographic Failures',
+    status: 'Warning',
+    findingsCount: 1,
+    description: 'Flaws related to cryptography, exposing sensitive data such as passwords, credit card numbers, health records.',
+  },
+  {
+    code: 'A03:2021',
+    name: 'Injection',
+    status: 'Violated',
+    findingsCount: 1,
+    description: 'SQL, NoSQL, OS command, and ORM injection flaws due to hostile data input without sanitization.',
+  },
+  {
+    code: 'A04:2021',
+    name: 'Insecure Design',
+    status: 'Violated',
+    findingsCount: 2,
+    description: 'Risks related to design flaws and missing threat modeling or architectural safeguards.',
+  },
+  {
+    code: 'A05:2021',
+    name: 'Security Misconfiguration',
+    status: 'Violated',
+    findingsCount: 2,
+    description: 'Missing security hardening, unpatched flaws, open cloud storage, or default accounts.',
+  },
+  {
+    code: 'A06:2021',
+    name: 'Vulnerable and Outdated Components',
+    status: 'Secure',
+    findingsCount: 0,
+    description: 'Components such as libraries, frameworks, and modules running outdated vulnerable versions.',
+  },
+  {
+    code: 'A07:2021',
+    name: 'Identification and Authentication Failures',
+    status: 'Warning',
+    findingsCount: 1,
+    description: 'Confirmation of the user identity, authentication, and session management flaws.',
+  },
+  {
+    code: 'A08:2021',
+    name: 'Software and Data Integrity Failures',
+    status: 'Violated',
+    findingsCount: 1,
+    description: 'Code and infrastructure that does not protect against integrity violations (unrestricted file upload, untrusted deserialization).',
+  },
+  {
+    code: 'A09:2021',
+    name: 'Security Logging and Monitoring Failures',
+    status: 'Violated',
+    findingsCount: 1,
+    description: 'Failure to detect, escalate, and alert for active breaches; insufficient log retention (CERT-In 180-day baseline).',
+  },
+  {
+    code: 'A10:2021',
+    name: 'Server-Side Request Forgery (SSRF)',
+    status: 'Secure',
+    findingsCount: 0,
+    description: 'Flaws occurring whenever a web application fetches a remote resource without validating the user-supplied URL.',
+  },
+];

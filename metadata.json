@@ -1,0 +1,6 @@
+{
+  "name": "Chanakya-Audit",
+  "description": "Autonomous Web Application Security & Compliance Assessment Platform designed for Indian digital ecosystems, startup infrastructures, and MSMEs (DPDP Act 2023, OWASP Top 10, CERT-In baselines).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
